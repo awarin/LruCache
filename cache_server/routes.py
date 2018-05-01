@@ -53,3 +53,10 @@ def set_document():
 
     cache.set_document(insert_request["key"], insert_request["value"])
     return json.dumps({"success": "true"})
+
+@app.after_request
+def apply_caching(response):
+    """ CORS policy """
+    response.headers["Access-Control-Allow-Origin"] = "*"
+    response.headers["Access-Control-Allow-Headers"] = "Origin, Accept, X-Requested-With, Content-Type"
+    return response
